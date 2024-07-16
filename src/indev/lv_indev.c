@@ -886,7 +886,13 @@ static void indev_keypad_proc_alternative(lv_indev_t *i, lv_indev_data_t *data)
                 lv_obj_has_flag(indev_obj_act, LV_OBJ_FLAG_SCROLLABLE))
             {
                 LV_LOG_INFO("toggling edit mode");
-                lv_group_set_editing(g, !lv_group_get_editing(g)); /*Toggle edit mode on long press*/
+                bool editing = lv_group_get_editing(g);
+                lv_group_set_editing(g, !editing); /*Toggle edit mode on long press*/
+                if (editing) /* Sends event only when it leaves the editing mode */
+                {
+                    if (send_event(LV_EVENT_EDITED, indev_act) == LV_RESULT_INVALID)
+                        return;
+                }
             }
             /*If not editable then just send a key press event*/
             else
@@ -909,7 +915,10 @@ static void indev_keypad_proc_alternative(lv_indev_t *i, lv_indev_data_t *data)
                     return;
             }
             else
+            {
                 lv_group_set_editing(g, false);
+                if(send_event(LV_EVENT_EDITED, indev_act) == LV_RESULT_INVALID) return;
+            }
         }
 
         /* Navigating mode: DOWN/RIGHT and UP/LEFT are used to navigate */
