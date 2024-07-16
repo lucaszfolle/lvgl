@@ -61,6 +61,7 @@ typedef enum {
     LV_EVENT_FOCUSED,             /**< The object is focused*/
     LV_EVENT_DEFOCUSED,           /**< The object is defocused*/
     LV_EVENT_LEAVE,               /**< The object is defocused but still selected*/
+    LV_EVENT_EDITED,              /**< The object has left the editing mode */
     LV_EVENT_HIT_TEST,            /**< Perform advanced hit-testing*/
     LV_EVENT_INDEV_RESET,         /**< Indev has been reset*/
 
