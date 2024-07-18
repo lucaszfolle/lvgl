@@ -340,7 +340,7 @@ static void lv_spinbox_event(const lv_obj_class_t * class_p, lv_event_t * e)
 
             /* Check cursor position */
             /* Cursor is in '.' digit */
-            if(txt[spinbox->ta.cursor.pos] == '.') {
+            if(txt[spinbox->ta.cursor.pos] == ',') {
                 lv_textarea_cursor_left(obj);
             }
             /* Cursor is already in the right-most digit */
@@ -441,7 +441,7 @@ static void lv_spinbox_updatevalue(lv_obj_t * obj)
 
     /*Insert the decimal point*/
     if(spinbox->dec_point_pos) {
-        (*buf_p) = '.';
+        (*buf_p) = ',';
         buf_p++;
 
         for(/*Leave i*/; i < spinbox->digit_count && digits[i] != '\0'; i++) {
