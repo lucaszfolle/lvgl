@@ -882,8 +882,7 @@ static void indev_keypad_proc_alternative(lv_indev_t *i, lv_indev_data_t *data)
         /* ENTER toggles editing mode if object is editable, otherwise just sends the ENTER click */
         if (data->key == LV_KEY_ENTER)
         {
-            if (lv_obj_is_editable(indev_obj_act) ||
-                lv_obj_has_flag(indev_obj_act, LV_OBJ_FLAG_SCROLLABLE))
+            if (lv_obj_is_editable(indev_obj_act))
             {
                 LV_LOG_INFO("toggling edit mode");
                 bool editing = lv_group_get_editing(g);
@@ -993,10 +992,8 @@ static void indev_keypad_proc_alternative(lv_indev_t *i, lv_indev_data_t *data)
         data->key = prev_key;
         if (data->key == LV_KEY_ENTER)
         {
-            bool editable_or_scrollable = lv_obj_is_editable(indev_obj_act) ||
-                                          lv_obj_has_flag(indev_obj_act, LV_OBJ_FLAG_SCROLLABLE);
             /*The button was released on a non-editable object. Just send enter*/
-            if (editable_or_scrollable == false)
+            if (lv_obj_is_editable(indev_obj_act) == false)
             {
                 if (is_enabled)
                 {
